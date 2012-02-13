@@ -136,14 +136,14 @@ endif
 " ---------------
 " Color
 " ---------------
-"set background=dark
-"colorscheme jellybeans
+set background=dark
+colorscheme jellybeans
 
 "" Solarized color options for iTerm2
-let g:solarized_termcolors=16
-syntax enable
-set background=dark
-colorscheme solarized
+"let g:solarized_termcolors=16
+"syntax enable
+"set background=dark
+"colorscheme solarized
 
 " Set Indent Guides plugin colors for Solarized
 "let g:indent_guides_auto_colors = 0
@@ -276,3 +276,13 @@ endif
 " Plugin Configuration
 " ----------------------------------------
 " See plugins/settings directory for plugin customization.
+" ---------------
+" Powerline
+" ---------------
+" Needs to be in main files to setup statusline
+" Keep ^B from showing on Windows in Powerline
+if has('win32') || has('win64')
+  let g:Powerline_symbols = 'compatible'
+else 
+  let g:Powerline_symbols = 'fancy'
+endif
