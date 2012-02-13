@@ -20,81 +20,11 @@ filetype plugin indent on  " Automatically detect file types. (must turn on afte
 " Vundle
 " ----------------------------------------
 
-" let Vundle manage Vundle, required
+" Let Vundle manage Vundle, required
 Bundle 'gmarik/vundle'
 
-" ---------------
-" Plugin Bundles
-" ---------------
-
-" Navigation
-Bundle 'ZoomWin'
-" This fork is required due to remapping ; to :
-Bundle 'christoomey/vim-space'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'corntrace/bufexplorer'
-Bundle 'kien/ctrlp.vim'
-Bundle 'xolox/vim-easytags'
-Bundle 'timgreen/vim-tagbar'
-" UI Additions
-Bundle 'mutewinter/vim-indent-guides'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Rykka/ColorV'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'altercation/vim-colors-solarized'
-" Commands
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-speeddating'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'visualrepeat'
-Bundle 'godlygeek/tabular'
-Bundle 'mileszs/ack.vim'
-Bundle 'gmarik/sudo-gui.vim'
-" Automatic Helpers
-Bundle 'IndexedSearch'
-Bundle 'xolox/vim-session'
-Bundle 'Raimondi/delimitMate'
-Bundle 'scrooloose/syntastic'
-Bundle 'ervandew/supertab'
-Bundle 'gregsexton/MatchTag'
-Bundle 'Shougo/neocomplcache'
-Bundle 'honza/snipmate-snippets'
-Bundle 'rson/vim-conque'
-Bundle 'zolrath/vim-ruby-conque'
-" Language Additions
-"   Ruby
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-haml'
-Bundle 'bbommarito/vim-slim'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-cucumber'
-Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'YankRing.vim'
-"   Clojure
-" Not currently working in Clojure.
-"Bundle 'emezeske/paredit.vim'
-"Bundle 'VimClojure'
-"   JavaScript
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'leshill/vim-json'
-Bundle 'itspriddle/vim-jquery'
-"   Misc
-Bundle 'tpope/vim-repeat'
-Bundle 'mutewinter/nginx.vim'
-Bundle 'tpope/vim-markdown'
-Bundle 'mattn/gist-vim'
-Bundle 'rgarver/Kwbd.vim'
-" MatchIt
-Bundle 'matchit.zip'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'austintaylor/vim-indentobject'
+" Edit VundlePackages.vim to add new plugins.
+source ~/.vim/settings/VundlePackages.vim
 
 " ----------------------------------------
 " Platform Specific Configuration
@@ -136,21 +66,14 @@ endif
 " ---------------
 " Color
 " ---------------
-set background=dark
-colorscheme jellybeans
+"set background=dark
+"colorscheme jellybeans
 
 "" Solarized color options for iTerm2
-"let g:solarized_termcolors=16
-"syntax enable
-"set background=dark
-"colorscheme solarized
-
-" Set Indent Guides plugin colors for Solarized
-"let g:indent_guides_auto_colors = 0
-"let g:indent_guides_start_level = 2
-"let g:indent_guides_guide_size  = 1
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=0
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=12
+let g:solarized_termcolors=16
+syntax enable
+set background=dark
+colorscheme solarized
 
 " ---------------
 " Backups
@@ -255,6 +178,11 @@ if has("autocmd")
         \ endif
 end
 
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
 " ---------------
 " Fix pasting into Terminal from System Clipboard
 " ---------------
@@ -275,14 +203,7 @@ endif
 " ----------------------------------------
 " Plugin Configuration
 " ----------------------------------------
-" See plugins/settings directory for plugin customization.
-" ---------------
-" Powerline
-" ---------------
-" Needs to be in main files to setup statusline
-" Keep ^B from showing on Windows in Powerline
-if has('win32') || has('win64')
-  let g:Powerline_symbols = 'compatible'
-else 
-  let g:Powerline_symbols = 'fancy'
-endif
+" For some reason the autoloading in /plugin wasnt working properly so:
+for f in split(glob('~/.vim/settings/*.vim'), '\n')
+  exe 'source' f
+endfor

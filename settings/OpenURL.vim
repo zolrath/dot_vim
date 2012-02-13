@@ -62,8 +62,7 @@ if !exists("*OpenURL")
 endif
 
 command! OpenUrl call OpenURL()
-nnoremap <leader>o :call OpenURL()<CR>
-
+"nnoremap <leader>o :call OpenURL()<CR>
 " ---------------
 " Paste link with Title
 " ---------------

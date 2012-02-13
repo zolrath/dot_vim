@@ -31,12 +31,21 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " :mk. allows creation of directories leading to current file.
 cnoremap mk. !mkdir -p <c-r>=expand("%:h")<cr>/
 
+" Use Ctrl+dir to move lines up/down.
 " Bubble single lines
 nmap <C-k> [e
 nmap <C-j> ]e
 " Bubble multiple lines
 vmap <C-k> [egv
 vmap <C-j> ]egv
+
+" Use Ctrl+dir to indent left/right.
+nnoremap <C-h> <<
+nnoremap <C-l> >>
+inoremap <C-h> <Esc><<`]a
+inoremap <C-l> <Esc>>>`]a
+vnoremap <C-h> <gv
+vnoremap <C-l> >gv
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
@@ -53,16 +62,9 @@ map <Right> :echo 'Jump around!'<cr>
 
 " Toggle spelling mode with ,s
 nmap <silent> <leader>s :set spell!<CR>
+
 " Edit vimrc with ,v
 nmap <silent> <leader>v :e ~/.vim/vimrc<CR>
-
-" Window Movement
-nmap <silent> <C-w>h :wincmd h<CR>
-nmap <silent> <C-w>j :wincmd j<CR>
-nmap <silent> <C-w>k :wincmd k<CR>
-nmap <silent> <C-w>l :wincmd l<CR>
-" Previous Window
-nmap <silent> <C-w>p :wincmd p<CR>
 
 " Equal Size Windows
 nmap <silent> <leader>w= :wincmd =<CR>
@@ -74,3 +76,30 @@ nmap <silent> <leader>sv :vsplit<CR>
 nmap <silent> <leader>hs :split<CR>
 nmap <silent> <leader>vs :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
+
+" ----------------------------------------
+" Functions
+" ----------------------------------------
+
+" ---------------
+" Fix Trailing White Space
+" ---------------
+map <leader>ws :%s/\s\+$//e<CR>
+command! FixTrailingWhiteSpace :%s/\s\+$//e
+
+" ---------------
+" Quick spelling fix (first item in z= list)
+" ---------------
+function! QuickSpellingFix()
+  if &spell
+    normal 1z=
+  else
+    " Enable spelling mode and do the correction
+    set spell
+    normal 1z=
+    set nospell
+  endif
+endfunction
+
+command! QuickSpellingFix call QuickSpellingFix()
+nmap <silent> <leader>z :QuickSpellingFix<CR>

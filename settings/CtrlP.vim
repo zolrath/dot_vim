@@ -10,7 +10,7 @@ endif
 
 " Leader Commands
 nnoremap <leader>t :CtrlPRoot<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
+"nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>c :CtrlPCurFile<CR>
 nnoremap <leader>u :CtrlPMRUFiles<CR>
 
