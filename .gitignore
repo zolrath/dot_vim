@@ -1,5 +1,7 @@
 /bundle
 /sessions
+/undo/*
+/tmp/*
 /backup/*
 /lib/vimclojure-nailgun-client/ng
 .DS_Store

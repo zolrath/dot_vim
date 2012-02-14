@@ -7,12 +7,16 @@ if has("gui_macvim")
 else
   let g:ctrlp_map = '<M-t>'
 endif
+let g:ctrlp_extensions = ['tag']
 
-" Leader Commands
-nnoremap <leader>t :CtrlPRoot<CR>
+" Leader Commandj
+nnoremap <C-p> :CtrlPRoot<CR>
 "nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>c :CtrlPCurFile<CR>
-nnoremap <leader>u :CtrlPMRUFiles<CR>
+nnoremap <leader>r :CtrlPMRUFiles<CR>
+nnoremap <leader>t :CtrlPTag<CR>
+
+
 
 " Ensure max height isn't too large. (for performance)
 let g:ctrlp_max_height = 10

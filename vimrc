@@ -85,7 +85,7 @@ set directory=~/.vim/tmp
 " --------------
 "  Undo
 " --------------
-set undodir=~/.vim/undodir
+set undodir=~/.vim/undo
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload"
@@ -99,7 +99,6 @@ set nowrap  " Line wrapping off
 set laststatus=2  " Always show the statusline
 set cmdheight=2
 set encoding=utf-8
-
 " ---------------
 " Behaviors
 " ---------------
@@ -114,7 +113,8 @@ set autowrite          " Writes on make/shell commands
 set timeoutlen=350     " Time to wait for a command (after leader for example)
 set foldlevelstart=99  " Remove folds
 set formatoptions=crql
-
+set scrolloff=5        " start scrolling when within 5 lines near the top/bottom
+set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) in visual block mode
 " ---------------
 " Text Format
 " ---------------
@@ -126,7 +126,6 @@ set autoindent
 set smarttab
 set expandtab
 set backspace=2
-
 " ---------------
 " Searching
 " ---------------
@@ -135,7 +134,7 @@ set smartcase " Non-case sensitive search
 set incsearch
 set hlsearch
 set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache
-nnoremap <esc> :noh<return><esc>
+nnoremap ` :noh<return><esc>
 
 " ---------------
 " Visual
@@ -162,6 +161,10 @@ set complete=.,w,b,u,U
 " ----------------------------------------
 " Auto Commands
 " ----------------------------------------
+
+" Only have cursorline in active window.
+au WinEnter * setlocal cursorline
+au WinLeave * setlocal nocursorline
 
 if has("autocmd")
   " No formatting on o key newlines
