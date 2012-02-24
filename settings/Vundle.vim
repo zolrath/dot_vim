@@ -1,6 +1,6 @@
 " ---------------
 " Vundle
 " ---------------
-nmap <Leader>bi :BundleInstall<CR>
-nmap <Leader>bu :BundleInstall!<CR> " Because this also updates
-nmap <Leader>bc :BundleClean<CR>
+nmap <Leader>vi :BundleInstall<CR>
+nmap <Leader>vu :BundleInstall!<CR> " Because this also updates
+nmap <Leader>vc :BundleClean<CR>

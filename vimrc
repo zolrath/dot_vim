@@ -10,7 +10,6 @@ filetype off     " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-filetype plugin indent on  " Automatically detect file types. (must turn on after Vundle)
 
 " Set leader to ,
 " Note: This line MUST come before any <leader> mappings
@@ -25,6 +24,8 @@ Bundle 'gmarik/vundle'
 
 " Edit VundlePackages.vim to add new plugins.
 source ~/.vim/settings/VundlePackages.vim
+
+filetype plugin indent on  " Automatically detect file types. (must turn on after Vundle)
 
 " ----------------------------------------
 " Platform Specific Configuration
@@ -66,14 +67,15 @@ endif
 " ---------------
 " Color
 " ---------------
-"set background=dark
-"colorscheme jellybeans
-
+set t_Co=256
+set background=dark
 "" Solarized color options for iTerm2
 let g:solarized_termcolors=16
-syntax enable
-set background=dark
-colorscheme solarized
+
+colorscheme jellybeans
+" colorscheme molokai
+" colorscheme solarized
+
 
 " ---------------
 " Backups
@@ -99,6 +101,7 @@ set nowrap  " Line wrapping off
 set laststatus=2  " Always show the statusline
 set cmdheight=2
 set encoding=utf-8
+set colorcolumn=81
 " ---------------
 " Behaviors
 " ---------------

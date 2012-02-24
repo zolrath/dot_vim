@@ -2,10 +2,14 @@
 " Bindings
 " ----------------------------------------
 " Fixes common typos
-" command W w
+command W w
 command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
+
+" Use Q for formatting the current paragraph (or selection)
+vmap Q gq
+nmap Q gqap
 
 " Removes doc lookup binding because it's easy to fat finger
 nmap K k
@@ -15,9 +19,8 @@ vmap K k
 imap <C-l> <C-x><C-l>
 
 " Easier Scrolling (think j/k with left hand)
-" All variations are mapped for now until I get used to one
-" C/M/D + d (page up)
-" C/M/D + f (page down)
+" C + d (page up)
+" C + f (page down)
 nmap <C-d> <C-b>
 
 " Use ; for : in normal and visual mode, less keystrokes
@@ -77,11 +80,14 @@ nmap <silent> <leader>hs :split<CR>
 nmap <silent> <leader>vs :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
 
+" Make j and k go through line wrapped text as if they were multiple lines.
 noremap j gj
 noremap k gk
+
 " ----------------------------------------
 " Functions
 " ----------------------------------------
+autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 
 " ---------------
 " Fix Trailing White Space

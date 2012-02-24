@@ -1,4 +1,4 @@
 " ---------------
 "  TagBar
 " ---------------
-nmap <leader>st :TagbarOpen fc<CR>
+nmap <leader>t :TagbarOpen fc<CR>

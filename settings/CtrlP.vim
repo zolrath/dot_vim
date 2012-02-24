@@ -9,12 +9,11 @@ else
 endif
 let g:ctrlp_extensions = ['tag']
 
-" Leader Commandj
+" Leader Command
 nnoremap <C-p> :CtrlPRoot<CR>
 "nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>c :CtrlPCurFile<CR>
 nnoremap <leader>r :CtrlPMRUFiles<CR>
-nnoremap <leader>t :CtrlPTag<CR>
 
 
 
