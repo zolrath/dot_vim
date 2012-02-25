@@ -20,8 +20,8 @@ Bundle 'timgreen/vim-tagbar'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
-" Bundle 'Rykka/ColorV'
-" Bundle 'ap/vim-css-color'
+Bundle 'Rykka/ColorV'
+Bundle 'ap/vim-css-color'
 " Bundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 " ------------------
@@ -56,9 +56,9 @@ Bundle 'SirVer/ultisnips'
 " Bundle 'rson/vim-conque'
 " Bundle 'zolrath/vim-ruby-conque'
 
-" ------------------
+" ----------------------------------
 " Language Additions
-" ------------------
+" ----------------------------------
 
 " ------------------
 "   Ruby
@@ -66,12 +66,13 @@ Bundle 'SirVer/ultisnips'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-haml'
 Bundle 'asux/vim-capybara'
 Bundle 'bbommarito/vim-slim'
 Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'skwp/vim-rspec'
 Bundle 'ecomba/vim-ruby-refactoring'
+" Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-cucumber'
 " Bundle 'tpope/vim-rake'
 " Bundle 'tpope/vim-bundler'
@@ -100,7 +101,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'mattn/gist-vim'
 " Bundle 'MarcWeber/vim-addon-mw-utils'
 " Bundle 'tomtom/tlib_vim'
-"Bundle 'hsitz/VimOrganizer.git'
+" Bundle 'hsitz/VimOrganizer.git'
 
 " ------------------
 " MatchIt
