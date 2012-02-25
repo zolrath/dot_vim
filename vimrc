@@ -139,8 +139,25 @@ set ignorecase " Case insensitive search
 set smartcase " Non-case sensitive search
 set incsearch
 set hlsearch
-set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache
-               \*.jpg,*.jpeg,*.png,*.gif,*.bmp,*.avi,*.mkv,*.mov,*.mp3
+
+" Disable image/video/audio files
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.bmp,*.avi,*.mkv,*.mov,*.mp3
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.hg,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable compiled files
+set wildignore+=*.exe,*.pyc,*.elc
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,
+               \*.lock
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*,.DS_Store
 
 " ---------------
 " Visual
