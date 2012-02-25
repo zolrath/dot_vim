@@ -8,6 +8,9 @@ else
   let g:ctrlp_map = '<M-t>'
 endif
 let g:ctrlp_extensions = ['tag']
+let g:ctrlp_custom_ignore = 'node_modules$\|DS_Store$\|\.git$\|\~$\|.lock$\|
+                            \.gitkeep$\|.png$\|.jpg$\|.jpeg$\|.gif$\|.bmp$\|
+                            \.mov$\|.mkv$\|.avi$\|.pdf$'
 
 " Leader Command
 nnoremap <C-p> :CtrlPRoot<CR>

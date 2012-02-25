@@ -8,7 +8,7 @@ set nocompatible " be iMproved
 filetype off     " required!
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+silent! call vundle#rc()
 
 
 " Set leader to ,
@@ -20,7 +20,7 @@ call vundle#rc()
 " ----------------------------------------
 
 " Let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+silent! Bundle 'gmarik/vundle'
 
 " Edit VundlePackages.vim to add new plugins.
 source ~/.vim/settings/@Packages.vim
@@ -72,7 +72,7 @@ set background=dark
 "" Solarized color options for iTerm2
 let g:solarized_termcolors=16
 
-colorscheme jellybeans
+silent! colorscheme jellybeans
 " colorscheme molokai
 " colorscheme solarized
 
@@ -102,6 +102,7 @@ set laststatus=2  " Always show the statusline
 set cmdheight=2
 set encoding=utf-8
 set colorcolumn=81
+
 " ---------------
 " Behaviors
 " ---------------
@@ -118,6 +119,7 @@ set foldlevelstart=99  " Remove folds
 set formatoptions=crql
 set scrolloff=5        " start scrolling when within 5 lines near the top/bottom
 set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) in visual block mode
+
 " ---------------
 " Text Format
 " ---------------
@@ -129,6 +131,7 @@ set autoindent
 set smarttab
 set expandtab
 set backspace=2
+
 " ---------------
 " Searching
 " ---------------
@@ -137,7 +140,6 @@ set smartcase " Non-case sensitive search
 set incsearch
 set hlsearch
 set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,.sass-cache
-nnoremap ` :noh<return><esc>
 
 " ---------------
 " Visual

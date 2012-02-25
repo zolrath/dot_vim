@@ -5,3 +5,4 @@
 /backup/*
 /lib/vimclojure-nailgun-client/ng
 .DS_Store
+tags

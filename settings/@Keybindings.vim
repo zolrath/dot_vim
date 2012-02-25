@@ -7,6 +7,15 @@ command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
 
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+
+" put cursor back to original position after repeating with .
+nmap . .`[
+
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
 nmap Q gqap
@@ -33,6 +42,10 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " :mk. allows creation of directories leading to current file.
 cnoremap mk. !mkdir -p <c-r>=expand("%:h")<cr>/
+
+" Make j and k go through line wrapped text as if they were multiple lines.
+noremap j gj
+noremap k gk
 
 " Use Ctrl+dir to move lines up/down.
 " Bubble single lines
@@ -80,13 +93,11 @@ nmap <silent> <leader>hs :split<CR>
 nmap <silent> <leader>vs :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
 
-" Make j and k go through line wrapped text as if they were multiple lines.
-noremap j gj
-noremap k gk
 
 " ----------------------------------------
 " Functions
 " ----------------------------------------
+
 autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 
 " ---------------
