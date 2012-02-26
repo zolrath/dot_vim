@@ -28,7 +28,6 @@ Bundle 'ap/vim-css-color'
 " Color Theme
 " ------------------
 Bundle 'nanotech/jellybeans.vim'
-Bundle 'depuracao/vim-darkdevel'
 " Bundle 'tomasr/molokai'
 " Bundle 'altercation/vim-colors-solarized'
 " Bundle 'sjl/badwolf'
