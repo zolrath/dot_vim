@@ -1,7 +1,6 @@
 " =======================================
 " Who: Matt Furden @zolrath (based off of @mutewinter's config)
 " What: vimrc for Ruby/Rails and Clojure
-" Version: 1.0
 " =======================================
 
 set nocompatible " be iMproved
@@ -9,7 +8,6 @@ filetype off     " required!
 
 set rtp+=~/.vim/bundle/vundle/
 silent! call vundle#rc()
-
 
 " Set leader to ,
 " Note: This line MUST come before any <leader> mappings
@@ -99,7 +97,7 @@ set ruler  " Ruler on
 set nu  " Line numbers on
 set nowrap  " Line wrapping off
 set laststatus=2  " Always show the statusline
-set cmdheight=2
+set cmdheight=1
 set encoding=utf-8
 set colorcolumn=81
 

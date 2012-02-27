@@ -22,6 +22,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
 Bundle 'Rykka/ColorV'
 Bundle 'ap/vim-css-color'
+Bundle 'kikijump/tslime.vim'
 " Bundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 " ------------------
@@ -37,20 +38,20 @@ Bundle 'nanotech/jellybeans.vim'
 " ------------------
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'godlygeek/tabular'
 Bundle 'gmarik/sudo-gui.vim'
-" Bundle 'mileszs/ack.vim'
+Bundle 'mileszs/ack.vim'
+" Bundle 'tpope/vim-speeddating'
 
 " ------------------
 " Automatic Helpers
 " ------------------
-Bundle 'Raimondi/delimitMate'
 Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
-Bundle 'SirVer/ultisnips'
+" Bundle 'SirVer/ultisnips'
+" Bundle 'Raimondi/delimitMate'
 " Bundle 'IndexedSearch'
 " Bundle 'gregsexton/MatchTag'
 " Bundle 'rson/vim-conque'
