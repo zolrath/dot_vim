@@ -7,7 +7,7 @@ command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
 
-"This unsets the "last search pattern" register by hitting return
+"This unsets the last search pattern register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
 " allow the . to execute once for each line of a visual selection
@@ -19,6 +19,10 @@ nmap . .`[
 " Use Q for formatting the current paragraph (or selection)
 vmap Q gq
 nmap Q gqap
+
+" Set C-c and C-v in visual mode to copy/paste with system buffer on OS X.
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
 
 " Removes doc lookup binding because it's easy to fat finger
 nmap K k
