@@ -100,6 +100,7 @@ set laststatus=2  " Always show the statusline
 set cmdheight=1
 set encoding=utf-8
 set colorcolumn=81
+set shortmess+=I
 
 " ---------------
 " Behaviors
@@ -129,6 +130,9 @@ set autoindent
 set smarttab
 set expandtab
 set backspace=2
+set list
+set listchars=tab:▸\ ,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
 
 " ---------------
 " Searching
@@ -155,7 +159,7 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,
                \*.lock
 
 " Disable temp and backup files
-set wildignore+=*.swp,*~,._*,.DS_Store
+set wildignore+=*.swp,*~,._*,.DS_Store,*/.vim/undo/*
 
 " ---------------
 " Visual

@@ -7,7 +7,7 @@
 " ------------------
 Bundle 'ZoomWin'
 " This fork is required due to remapping ; to :
-Bundle 'jeetsukumaran/vim-buffergator'
+" Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'timgreen/vim-tagbar'
@@ -17,12 +17,12 @@ Bundle 'timgreen/vim-tagbar'
 " ------------------
 " UI Additions
 " ------------------
-Bundle 'mutewinter/vim-indent-guides'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
 Bundle 'Rykka/ColorV'
 Bundle 'ap/vim-css-color'
-Bundle 'kikijump/tslime.vim'
+" Bundle 'mutewinter/vim-indent-guides'
+" Bundle 'kikijump/tslime.vim'
 " Bundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 " ------------------
@@ -48,11 +48,11 @@ Bundle 'mileszs/ack.vim'
 " ------------------
 " Automatic Helpers
 " ------------------
+Bundle 'IndexedSearch'
 Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 " Bundle 'SirVer/ultisnips'
 " Bundle 'Raimondi/delimitMate'
-" Bundle 'IndexedSearch'
 " Bundle 'gregsexton/MatchTag'
 " Bundle 'rson/vim-conque'
 " Bundle 'zolrath/vim-ruby-conque'
@@ -71,8 +71,8 @@ Bundle 'tpope/vim-haml'
 Bundle 'asux/vim-capybara'
 Bundle 'bbommarito/vim-slim'
 Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'skwp/vim-rspec'
-Bundle 'ecomba/vim-ruby-refactoring'
+" Bundle 'skwp/vim-rspec'
+" Bundle 'ecomba/vim-ruby-refactoring'
 " Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-cucumber'
 " Bundle 'tpope/vim-rake'
@@ -81,7 +81,6 @@ Bundle 'ecomba/vim-ruby-refactoring'
 " ------------------
 "   Clojure
 " ------------------
-" Not currently working in Clojure.
 " Bundle 'emezeske/paredit.vim'
 " Bundle 'VimClojure'
 
@@ -90,7 +89,7 @@ Bundle 'ecomba/vim-ruby-refactoring'
 " ------------------
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'leshill/vim-json'
-Bundle 'itspriddle/vim-jquery'
+" Bundle 'itspriddle/vim-jquery'
 " Bundle 'pangloss/vim-javascript'
 
 " ------------------
@@ -102,7 +101,6 @@ Bundle 'tpope/vim-markdown'
 Bundle 'mattn/gist-vim'
 " Bundle 'MarcWeber/vim-addon-mw-utils'
 " Bundle 'tomtom/tlib_vim'
-" Bundle 'hsitz/VimOrganizer.git'
 
 " ------------------
 " MatchIt

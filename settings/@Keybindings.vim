@@ -7,6 +7,12 @@ command Q q
 map <F1> <Esc>
 imap <F1> <Esc>
 
+" Use kj as Esc alternative
+inoremap kj <Esc>
+
+" Make C-y get word above it in insert mode.
+inoremap <expr> <C-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+
 "This unsets the last search pattern register by hitting return
 nnoremap <CR> :noh<CR><CR>
 
@@ -23,6 +29,13 @@ nmap Q gqap
 " Set C-c and C-v in visual mode to copy/paste with system buffer on OS X.
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
+
+" Make Y behave like other capitals
+map Y y$
+
+" Reselect visual section after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
 
 " Removes doc lookup binding because it's easy to fat finger
 nmap K k
@@ -71,10 +84,11 @@ vnoremap <C-l> >gv
 nmap gV `[v`]
 
 " Disable arrow keys
-map <Up>    :echo 'Jump up, jump up..'<cr>
-map <Down>  :echo 'and get down!'<cr>
-map <Left>  :echo 'Jump! Jump! Jump!'<cr>
-map <Right> :echo 'Jump around!'<cr>
+" Remapped arrow keys to resize splits below.
+" map <Up>    :echo 'Jump up, jump up..'<cr>
+" map <Down>  :echo 'and get down!'<cr>
+" map <Left>  :echo 'Jump! Jump! Jump!'<cr>
+" map <Right> :echo 'Jump around!'<cr>
 
 " ---------------
 " Leader Commands
@@ -102,8 +116,43 @@ nmap <silent> <leader>sc :close<CR>
 " Functions
 " ----------------------------------------
 
-autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
+" ---------------
+" Use Leader direction to move to or create new splits.
+" ---------------
 
+function! WinMove(key) 
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr()) "we havent moved
+    if (match(a:key,'[jk]')) "were we going up/down
+      wincmd v
+    else 
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
+ 
+map <leader>h              :call WinMove('h')<cr>
+map <leader>k              :call WinMove('k')<cr>
+map <leader>l              :call WinMove('l')<cr>
+map <leader>j              :call WinMove('j')<cr>
+
+" Capital directions to move splits.
+map <leader>H              :wincmd H<cr>
+map <leader>K              :wincmd K<cr>
+map <leader>L              :wincmd L<cr>
+map <leader>J              :wincmd J<cr>
+
+" ,x to close split. ,sr to rotate splits.
+map <leader>x :wincmd q<cr>
+map <leader>sr <C-W>r
+
+" Use arrow keys to resize splits.
+nmap <left>  :3wincmd <<cr>
+nmap <right> :3wincmd ><cr>
+nmap <up>    :3wincmd +<cr>
+nmap <down>  :3wincmd -<cr>
 " ---------------
 " Fix Trailing White Space
 " ---------------
