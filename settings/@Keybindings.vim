@@ -10,8 +10,9 @@ imap <F1> <Esc>
 " Use kj as Esc alternative
 inoremap kj <Esc>
 
-" Make C-y get word above it in insert mode.
-inoremap <expr> <C-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+" Space to toggle folds
+nnoremap <Space> za
+vnoremap <Space> za
 
 "This unsets the last search pattern register by hitting return
 nnoremap <CR> :noh<CR><CR>
@@ -53,6 +54,15 @@ nmap <C-d> <C-b>
 nnoremap ; :
 vnoremap ; :
 
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
+"----------------------------
+" New Features
+" ---------------------------
+" Make C-y get word above it in insert mode.
+inoremap <expr> <C-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -80,59 +90,51 @@ inoremap <C-l> <Esc>>>`]a
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 
-" Visually select the text that was last edited/pasted
-nmap gV `[v`]
-
-" Disable arrow keys
-" Remapped arrow keys to resize splits below.
-" map <Up>    :echo 'Jump up, jump up..'<cr>
-" map <Down>  :echo 'and get down!'<cr>
-" map <Left>  :echo 'Jump! Jump! Jump!'<cr>
-" map <Right> :echo 'Jump around!'<cr>
+" Yank text by deleting, then visually highlight what you want to swap it with
+" then press ctrl-r
+vnoremap <C-r> <Esc>`.``gvP``P
 
 " ---------------
 " Leader Commands
 " ---------------
 
 " Toggle spelling mode with ,s
-nmap <silent> <leader>s :set spell!<CR>
+" nmap <silent> <leader>s :set spell!<CR>
+
+
+" ,s or ,S to search for word under cursor.
+nnoremap <leader>s :%s//<left>
+nnoremap <Leader>S :%s/<c-r>=expand('<cword>')<cr>//gc<left><left><left>
 
 " Edit vimrc with ,v
 nmap <silent> <leader>v :e ~/.vim/vimrc<CR>
 
+
+" ----------------------------------------
+" Window Controls
+" ----------------------------------------
 " Equal Size Windows
 nmap <silent> <leader>w= :wincmd =<CR>
 
-" Window Splitting
+" Traditional Window Splitting
 nmap <silent> <leader>sh :split<CR>
 nmap <silent> <leader>sv :vsplit<CR>
-" Because I'm dyslexic
-nmap <silent> <leader>hs :split<CR>
-nmap <silent> <leader>vs :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
 
-
-" ----------------------------------------
-" Functions
-" ----------------------------------------
-
-" ---------------
 " Use Leader direction to move to or create new splits.
-" ---------------
-
-function! WinMove(key) 
+function! WinMove(key)
   let t:curwin = winnr()
   exec "wincmd ".a:key
   if (t:curwin == winnr()) "we havent moved
     if (match(a:key,'[jk]')) "were we going up/down
       wincmd v
-    else 
+    else
       wincmd s
     endif
     exec "wincmd ".a:key
   endif
 endfunction
- 
+
 map <leader>h              :call WinMove('h')<cr>
 map <leader>k              :call WinMove('k')<cr>
 map <leader>l              :call WinMove('l')<cr>
@@ -153,11 +155,30 @@ nmap <left>  :3wincmd <<cr>
 nmap <right> :3wincmd ><cr>
 nmap <up>    :3wincmd +<cr>
 nmap <down>  :3wincmd -<cr>
+
+" ----------------------------------------
+" Functions
+" ----------------------------------------
+
 " ---------------
 " Fix Trailing White Space
 " ---------------
-map <leader>ws :%s/\s\+$//e<CR>
-command! FixTrailingWhiteSpace :%s/\s\+$//e
+"From http://vimcasts.org/episodes/tidying-whitespace/
+"Preserves/Saves the state, executes a command, and returns to the saved state
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+"strip all trailing white space
+nnoremap <silent> <leader>ws  :call Preserve("%s/\\s\\+$//e")<CR>
 
 " ---------------
 " Quick spelling fix (first item in z= list)
