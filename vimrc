@@ -23,7 +23,8 @@ silent! Bundle 'gmarik/vundle'
 " Edit VundlePackages.vim to add new plugins.
 source ~/.vim/settings/@Packages.vim
 
-filetype plugin indent on  " Automatically detect file types. (must turn on after Vundle)
+" Automatically detect file types. (must turn on after Vundle)
+filetype plugin indent on
 
 " ----------------------------------------
 " Platform Specific Configuration
@@ -47,7 +48,7 @@ elseif has('gui_macvim')
 
   " Custom Inconsola-dz font for Powerline
   " From: https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-  set guifont=Inconsola-dz\ for\ Powerline:h12
+  set guifont=Inconsola-dz\ for\ Powerline:h14
 
   " Hide Toolbar in MacVim
   if has("gui_running")
@@ -68,12 +69,11 @@ endif
 set t_Co=256
 set background=dark
 "" Solarized color options for iTerm2
-let g:solarized_termcolors=16
+" let g:solarized_termcolors=16
 
 silent! colorscheme jellybeans
 " colorscheme molokai
 " colorscheme solarized
-
 
 " ---------------
 " Backups
@@ -101,6 +101,7 @@ set cmdheight=1
 set encoding=utf-8
 set colorcolumn=81
 set shortmess+=I
+au VimResized * exe "normal! \<c-w>="
 
 " ---------------
 " Behaviors
@@ -114,9 +115,12 @@ set cf                 " Enable error files & error jumping.
 set clipboard+=unnamed " Yanks go on clipboard instead.
 set autowrite          " Writes on make/shell commands
 set timeoutlen=350     " Time to wait for a command (after leader for example)
+set foldmethod=syntax  " Fold on syntax for ruby support.
 set foldlevelstart=99  " Remove folds
 set formatoptions=crql
 set scrolloff=5        " start scrolling when within 5 lines near the top/bottom
+set sidescrolloff=10   " start scrolling when within 10 characters of the left/right
+set sidescroll=1       " scroll to left/right one column at a time.
 set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) in visual block mode
 
 " ---------------
