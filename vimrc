@@ -11,7 +11,7 @@ silent! call vundle#rc()
 
 " Set leader to ,
 " Note: This line MUST come before any <leader> mappings
- let mapleader=","
+let mapleader=","
 
 " ----------------------------------------
 " Vundle
@@ -68,7 +68,7 @@ endif
 " ---------------
 set t_Co=256
 set background=dark
-"" Solarized color options for iTerm2
+" Solarized color options for iTerm2
 " let g:solarized_termcolors=16
 
 silent! colorscheme jellybeans
@@ -87,21 +87,24 @@ set directory=~/.vim/tmp
 " --------------
 set undodir=~/.vim/undo
 set undofile
-set undolevels=1000 "maximum number of changes that can be undone
+set undolevels=1000  "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload"
 
 " ---------------
 " UI
 " ---------------
-set ruler  " Ruler on
-set nu  " Line numbers on
-set nowrap  " Line wrapping off
+set ruler         " Ruler on
+set nu            " Line numbers on
+set nowrap        " Line wrapping off
 set laststatus=2  " Always show the statusline
 set cmdheight=1
 set encoding=utf-8
-set colorcolumn=81
 set shortmess+=I
-au VimResized * exe "normal! \<c-w>="
+" Make currently selected split as large as possible while allowing other
+" splits to maintain a height of at least five.
+" set winheight=5
+" set winminheight=5
+" set winheight=999
 
 " ---------------
 " Behaviors
@@ -160,7 +163,7 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
 " Ignore bundler and sass cache
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,
-               \*.lock
+      \*.lock
 
 " Disable temp and backup files
 set wildignore+=*.swp,*~,._*,.DS_Store,*/.vim/undo/*
@@ -191,51 +194,71 @@ set complete=.,w,b,u,U
 " Auto Commands
 " ----------------------------------------
 
-" Only have cursorline in active window.
-au WinEnter * setlocal cursorline
-au WinLeave * setlocal nocursorline
-
 if has("autocmd")
-  " No formatting on o key newlines
-  autocmd BufNewFile,BufEnter * set formatoptions-=o
+  augroup autocommands
+    autocmd!
 
-  " No more complaining about untitled documents
-  autocmd FocusLost silent! :wa
+    " Only have cursorline in active window.
+    au WinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
 
-  " When editing a file, always jump to the last cursor position.
-  " This must be after the uncompress commands.
-  autocmd BufReadPost *
-        \ if line("'\"") > 1 && line ("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
-end
+    " Only have color column to warn after 80 characters in insert.
+    if exists("&colorcolumn")
+      autocmd InsertEnter * set colorcolumn=81
+      autocmd InsertLeave * set colorcolumn=""
+    endif
 
-" Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
+    " No formatting on o key newlines
+    autocmd BufNewFile,BufEnter * set formatoptions-=o
 
-" ---------------
-" Fix pasting into Terminal from System Clipboard
-" ---------------
-if &term =~ "xterm.*"
-  let &t_ti = &t_ti . "\e[?2004h"
-  let &t_te = "\e[?2004l" . &t_te
-  function XTermPasteBegin(ret)
-    set pastetoggle=<Esc>[201~
-    set paste
-    return a:ret
-  endfunction
-  map <expr> <Esc>[200~ XTermPasteBegin("i")
-  imap <expr> <Esc>[200~ XTermPasteBegin("")
-  cmap <Esc>[200~ <nop>
-  cmap <Esc>[201~ <nop>
-endif
+    " No more complaining about untitled documents
+    autocmd FocusLost silent! :wa
 
-" ----------------------------------------
-" Plugin Configuration
-" ----------------------------------------
-" For some reason the autoloading in /plugin wasnt working properly so:
-for f in split(glob('~/.vim/settings/*.vim'), '\n')
-  exe 'source' f
-endfor
+    " When editing a file, always jump to the last cursor position.
+    " This must be after the uncompress commands.
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line ("'\"") <= line("$") |
+          \   exe "normal! g`\"" |
+          \ endif
+
+    " When vim is resized, automatically equalize split size.
+    au VimResized * exe "normal! \<c-w>="
+
+    " Source the vimrc file after saving it
+    autocmd bufwritepost .vimrc source $MYVIMRC
+
+    " Leave insert mode after 15 seconds of inactivity.
+    au CursorHoldI * stopinsert
+    au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+    au InsertLeave * let &updatetime=updaterestore
+    autocmd FileType ruby,eruby
+          \ set foldmethod=expr |
+          \ set foldexpr=getline(v:lnum)=~'^\\s*#' |
+          \ exe "normal zM``"
+    augroup END
+  endif
+
+  " ---------------
+  " Fix pasting into Terminal from System Clipboard
+  " ---------------
+  if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function XTermPasteBegin(ret)
+      set pastetoggle=<Esc>[201~
+      set paste
+      return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+  endif
+
+  " ----------------------------------------
+  " Plugin Configuration
+  " ----------------------------------------
+  " For some reason the autoloading in /plugin wasnt working properly so:
+  for f in split(glob('~/.vim/settings/*.vim'), '\n')
+    exe 'source' f
+  endfor
