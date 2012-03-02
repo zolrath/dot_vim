@@ -1,65 +1,100 @@
 " ----------------------------------------
 " Bindings
 " ----------------------------------------
-" Fixes common typos
-command W w
-command Q q
-map <F1> <Esc>
-imap <F1> <Esc>
 
-" Use kj as Esc alternative
+" swap ` with ' because the ' key is closer and jumping to the character is more useful.
+nnoremap ' `
+nnoremap ` '
+
+" Fixes common typos
+" command W w " Commented out to allow :W! to write with sudo.
+command Q q
+map <f1> <esc>
+imap <f1> <esc>
+" removes doc lookup binding because it's easy to fat finger.
+vnoremap K k
+
+" Map Q to repeat last run macro.
+map Q @@
+
+" Auto-indent pastes according to surrounding code.
+nnoremap <leader>p p
+nnoremap <leader>P P
+nnoremap p p'[v']=
+nnoremap P P'[v']=
+
+" Use kj as Esc alternative.
 inoremap kj <Esc>
 
-" Space to toggle folds
+" Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
 
-"This unsets the last search pattern register by hitting return
+" Remove search highlighting by pressing Enter.
 nnoremap <CR> :noh<CR><CR>
 
-" allow the . to execute once for each line of a visual selection
+" Allow the . to execute once for each line of a visual selection.
 vnoremap . :normal .<CR>
 
 " put cursor back to original position after repeating with .
-nmap . .`[
+nnoremap . .`[
 
-" Use Q for formatting the current paragraph (or selection)
+" Use Q for formatting the current paragraph (or selection).
 vmap Q gq
 nmap Q gqap
 
-" Set C-c and C-v in visual mode to copy/paste with system buffer on OS X.
-vmap <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
+" Set C-c and C-v in visual mode to copy/paste in vim without +clipboard.
+" Can only yank whole lines. If possible, recompile with +clipboard.
+if has("mac")
+  let g:clip_command = 'pbcopy'
+elseif has("unix")
+  let g:clip_command = 'xclip -selection clipboard'
+elseif has('win32') || has('win64')
+  let g:clip_command = 'clip'
+endif
+vmap <C-x> :!<c-r>=clip_command<CR><CR>
+vmap <C-c> :w !<c-r>=clip_command<CR><CR><CR>
 
-" Make Y behave like other capitals
+" Make Y behave like other capitals.
 map Y y$
 
-" Reselect visual section after indent/outdent
+" YY to yank from first non-blank to last non-blank on line.
+noremap <silent> YY :call Preserve("normal!" . "^yg_")<CR>
+
+" Reselect visual section after indent/outdent.
 vnoremap < <gv
 vnoremap > >gv
 
-" Removes doc lookup binding because it's easy to fat finger
-nmap K k
-vmap K k
+" Visually select the text that was last edited/pasted.
+nnoremap gV `[v`]
 
-" Make line completion easier
+" Make line completion easier.
 imap <C-l> <C-x><C-l>
 
-" Easier Scrolling (think j/k with left hand)
+" Easier Scrolling (think j/k with left hand).
 " C + d (page up)
 " C + f (page down)
 nmap <C-d> <C-b>
 
-" Use ; for : in normal and visual mode, less keystrokes
+" Make j and k go through line wrapped text as if they were multiple lines.
+noremap j gj
+noremap k gk
+
+" Use ; for : in normal and visual mode, less keystrokes.
 nnoremap ; :
 vnoremap ; :
-
-" Visually select the text that was last edited/pasted
-nmap gV `[v`]
+nnoremap ;; :!
+vnoremap ;; :!
 
 "----------------------------
 " New Features
 " ---------------------------
+" Write with sudo.
+cnoremap w!! w !sudo tee % >/dev/null<CR>
+
+" Remap K to split line to right of current cursor position.
+nnoremap K a<CR><Esc>`[
+
 " Make C-y get word above it in insert mode.
 inoremap <expr> <C-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
 
@@ -70,15 +105,11 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " :mk. allows creation of directories leading to current file.
 cnoremap mk. !mkdir -p <c-r>=expand("%:h")<cr>/
 
-" Make j and k go through line wrapped text as if they were multiple lines.
-noremap j gj
-noremap k gk
-
 " Use Ctrl+dir to move lines up/down.
-" Bubble single lines
+" Bubble single lines.
 nmap <C-k> [e
 nmap <C-j> ]e
-" Bubble multiple lines
+" Bubble multiple lines.
 vmap <C-k> [egv
 vmap <C-j> ]egv
 
@@ -91,32 +122,34 @@ vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 
 " Yank text by deleting, then visually highlight what you want to swap it with
-" then press ctrl-r
+" then press C-r.
 vnoremap <C-r> <Esc>`.``gvP``P
 
 " ---------------
 " Leader Commands
 " ---------------
+" Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the
+" yank stack (also, in visual mode).
+nmap <silent> <leader>d "_d
+vmap <silent> <leader>d "_d
 
 " Toggle spelling mode with ,s
 " nmap <silent> <leader>s :set spell!<CR>
 
-
 " ,s or ,S to search for word under cursor.
-nnoremap <leader>s :%s//<left>
+nnoremap <leader>s :%s/\v/<left>
 nnoremap <Leader>S :%s/<c-r>=expand('<cword>')<cr>//gc<left><left><left>
 
 " Edit vimrc with ,v
 nmap <silent> <leader>v :e ~/.vim/vimrc<CR>
 
-
 " ----------------------------------------
 " Window Controls
 " ----------------------------------------
-" Equal Size Windows
+" Equal Size Windows.
 nmap <silent> <leader>w= :wincmd =<CR>
 
-" Traditional Window Splitting
+" Traditional Window Splitting.
 nmap <silent> <leader>sh :split<CR>
 nmap <silent> <leader>sv :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
@@ -125,46 +158,44 @@ nmap <silent> <leader>sc :close<CR>
 function! WinMove(key)
   let t:curwin = winnr()
   exec "wincmd ".a:key
-  if (t:curwin == winnr()) "we havent moved
-    if (match(a:key,'[jk]')) "were we going up/down
+  if (t:curwin == winnr()) "we havent moved.
+    if (match(a:key,'[jk]')) "were we going up/down?
       wincmd v
     else
       wincmd s
     endif
-    exec "wincmd ".a:key
   endif
+    exec "wincmd ".a:key
 endfunction
 
-map <leader>h              :call WinMove('h')<cr>
-map <leader>k              :call WinMove('k')<cr>
-map <leader>l              :call WinMove('l')<cr>
-map <leader>j              :call WinMove('j')<cr>
+map <leader>h   :call WinMove('h')<cr>
+map <leader>k   :call WinMove('k')<cr>
+map <leader>l   :call WinMove('l')<cr>
+map <leader>j   :call WinMove('j')<cr>
 
 " Capital directions to move splits.
-map <leader>H              :wincmd H<cr>
-map <leader>K              :wincmd K<cr>
-map <leader>L              :wincmd L<cr>
-map <leader>J              :wincmd J<cr>
+map <leader>H   :wincmd H<cr>
+map <leader>K   :wincmd K<cr>
+map <leader>L   :wincmd L<cr>
+map <leader>J   :wincmd J<cr>
 
 " ,x to close split. ,sr to rotate splits.
-map <leader>x :wincmd q<cr>
-map <leader>sr <C-W>r
+map <leader>x   :wincmd q<cr>
+map <leader>sr   <C-W>r
 
 " Use arrow keys to resize splits.
-nmap <left>  :3wincmd <<cr>
-nmap <right> :3wincmd ><cr>
-nmap <up>    :3wincmd +<cr>
-nmap <down>  :3wincmd -<cr>
+nmap <left>    :3wincmd <<cr>
+nmap <right>   :3wincmd ><cr>
+nmap <up>      :3wincmd +<cr>
+nmap <down>    :3wincmd -<cr>
 
 " ----------------------------------------
 " Functions
 " ----------------------------------------
 
 " ---------------
-" Fix Trailing White Space
+" Preserves/Saves the state, executes a command, and returns to the saved state.
 " ---------------
-"From http://vimcasts.org/episodes/tidying-whitespace/
-"Preserves/Saves the state, executes a command, and returns to the saved state
 function! Preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
@@ -172,22 +203,42 @@ function! Preserve(command)
   let c = col(".")
   " Do the business:
   execute a:command
-  " Clean up: restore previous search history, and cursor position
+  " Clean up: restore previous search history, and cursor position.
   let @/=_s
   call cursor(l, c)
 endfunction
 
-"strip all trailing white space
+" ---------------
+" Fix Trailing White Space.
+" ---------------
 nnoremap <silent> <leader>ws  :call Preserve("%s/\\s\\+$//e")<CR>
 
 " ---------------
-" Quick spelling fix (first item in z= list)
+" Reindent File.
+" ---------------
+nnoremap <silent> <leader>re :call Preserve("normal!" . "gg=G")<CR>
+
+" ---------------
+" Diff current edits with saved version.
+" ---------------
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+nnoremap <leader>ds :DiffSaved<CR><C-w>l
+
+" ---------------
+" Quick spelling fix (first item in z= list).
 " ---------------
 function! QuickSpellingFix()
   if &spell
     normal 1z=
   else
-    " Enable spelling mode and do the correction
+    " Enable spelling mode and do the correction.
     set spell
     normal 1z=
     set nospell
