@@ -6,11 +6,11 @@
 " Navigation
 " ------------------
 Bundle 'ZoomWin'
-" This fork is required due to remapping ; to :
-" Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'timgreen/vim-tagbar'
+" This fork is required due to remapping ; to :
+" Bundle 'jeetsukumaran/vim-buffergator'
 " Bundle 'Lokaltog/vim-easymotion'
 " Bundle 'christoomey/vim-space'
 
@@ -21,8 +21,8 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
 Bundle 'Rykka/ColorV'
 Bundle 'ap/vim-css-color'
-" Bundle 'mutewinter/vim-indent-guides'
 " Bundle 'kikijump/tslime.vim'
+" Bundle 'mutewinter/vim-indent-guides'
 " Bundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 " ------------------
@@ -38,12 +38,18 @@ Bundle 'nanotech/jellybeans.vim'
 " ------------------
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'godlygeek/tabular'
 Bundle 'gmarik/sudo-gui.vim'
 Bundle 'mileszs/ack.vim'
 " Bundle 'tpope/vim-speeddating'
+
+" ------------------
+" Git Integration
+" ------------------
+Bundle 'tpope/vim-fugitive'
+Bundle 'int3/vim-extradite'
+Bundle 'tpope/vim-git'
 
 " ------------------
 " Automatic Helpers

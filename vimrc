@@ -163,7 +163,7 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
 " Ignore bundler and sass cache
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,
-      \*.lock
+               \*.lock
 
 " Disable temp and backup files
 set wildignore+=*.swp,*~,._*,.DS_Store,*/.vim/undo/*
@@ -225,8 +225,8 @@ if has("autocmd")
     au VimResized * exe "normal! \<c-w>="
 
     " Source the vimrc file after saving it
-    autocmd bufwritepost .vimrc source $MYVIMRC
 
+    autocmd bufwritepost .vimrc source $MYVIMRC
     " Leave insert mode after 15 seconds of inactivity.
     au CursorHoldI * stopinsert
     au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
