@@ -20,8 +20,8 @@ map Q @@
 " Auto-indent pastes according to surrounding code.
 nnoremap <leader>p p
 nnoremap <leader>P P
-nnoremap p p'[v']=
-nnoremap P P'[v']=
+nnoremap p p'[v`]=`]
+nnoremap P P'[v`]=`]
 
 " Use kj as Esc alternative.
 inoremap kj <Esc>
