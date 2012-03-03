@@ -20,8 +20,13 @@
 
 ## Notes
 
-Be sure to always edit the vimrc using `,v`, which opens the vimrc in the .vim folder. Vim has a nasty habit of overriding symlinks.
-Keybindings and Plugin Specific options are located in the plugin/settings directory.
+Be sure to always edit the vimrc using `,v`, which opens the vimrc in the .vim folder.
+
+## Customization
+
+You can add plugins via editing the `@CustomBundle.vim` file in the `custom/` directory. Any files ending in
+`.vim` in the `custom/` directory will automatically be sourced on launch, allowing you to override any of the
+settings without losing the ability to pull this repo.
 
 ## Plugin Installation / Requirements
 
