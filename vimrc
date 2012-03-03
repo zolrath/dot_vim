@@ -1,5 +1,5 @@
 " =======================================
-" Who: Matt Furden @zolrath (based off of @mutewinter's config)
+" Who: Matt Furden @zolrath
 " What: vimrc for Ruby/Rails and Clojure
 " =======================================
 
@@ -45,7 +45,6 @@ if has('win32') || has('win64')
   cd ~
 elseif has('gui_macvim')
   " MacVim
-
   " Custom Inconsola-dz font for Powerline
   " From: https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
   set guifont=Inconsola-dz\ for\ Powerline:h14
@@ -130,7 +129,7 @@ set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) i
 " Text Format
 " ---------------
 set tabstop=2
-set backspace=2 " Delete everything with backspace
+set backspace=2   " Delete everything with backspace
 set shiftwidth=2  " Tabs under smart indent
 set cindent
 set autoindent
@@ -145,7 +144,7 @@ set showbreak=↪
 " Searching
 " ---------------
 set ignorecase " Case insensitive search
-set smartcase " Non-case sensitive search
+set smartcase  " Non-case sensitive search
 set incsearch
 set hlsearch
 
@@ -163,7 +162,7 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 
 " Ignore bundler and sass cache
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,
-               \*.lock
+      \*.lock
 
 " Disable temp and backup files
 set wildignore+=*.swp,*~,._*,.DS_Store,*/.vim/undo/*
@@ -171,7 +170,7 @@ set wildignore+=*.swp,*~,._*,.DS_Store,*/.vim/undo/*
 " ---------------
 " Visual
 " ---------------
-set showmatch  " Show matching brackets.
+set showmatch   " Show matching brackets.
 set matchtime=2 " How many tenths of a second to blink
 
 " ---------------
@@ -185,7 +184,7 @@ set t_vb=
 " Mouse
 " ---------------
 set mousehide  " Hide mouse after chars typed
-set mouse=a  " Mouse in all modes
+set mouse=a    " Mouse in all modes
 
 " Better complete options to speed it up
 set complete=.,w,b,u,U
@@ -225,40 +224,50 @@ if has("autocmd")
     au VimResized * exe "normal! \<c-w>="
 
     " Source the vimrc file after saving it
-
     autocmd bufwritepost .vimrc source $MYVIMRC
+
+    " Don't show trailing whitespace in insert mode.
+    au InsertEnter * :set listchars-=trail:⋅
+    au InsertLeave * :set listchars+=trail:⋅
+
     " Leave insert mode after 15 seconds of inactivity.
     au CursorHoldI * stopinsert
     au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
     au InsertLeave * let &updatetime=updaterestore
-    autocmd FileType ruby,eruby
+
+    " Autofold Ruby comments
+    au FileType ruby,eruby
           \ set foldmethod=expr |
           \ set foldexpr=getline(v:lnum)=~'^\\s*#' |
           \ exe "normal zM``"
-    augroup END
-  endif
+  augroup END
+endif
 
-  " ---------------
-  " Fix pasting into Terminal from System Clipboard
-  " ---------------
-  if &term =~ "xterm.*"
-    let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
-      set pastetoggle=<Esc>[201~
-      set paste
-      return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-  endif
+" ---------------
+" Fix pasting into Terminal from System Clipboard
+" ---------------
+if &term =~ "xterm.*"
+  let &t_ti = &t_ti . "\e[?2004h"
+  let &t_te = "\e[?2004l" . &t_te
+  function XTermPasteBegin(ret)
+    set pastetoggle=<Esc>[201~
+    set paste
+    return a:ret
+  endfunction
+  map <expr> <Esc>[200~ XTermPasteBegin("i")
+  imap <expr> <Esc>[200~ XTermPasteBegin("")
+  cmap <Esc>[200~ <nop>
+  cmap <Esc>[201~ <nop>
+endif
 
-  " ----------------------------------------
-  " Plugin Configuration
-  " ----------------------------------------
-  " For some reason the autoloading in /plugin wasnt working properly so:
-  for f in split(glob('~/.vim/settings/*.vim'), '\n')
-    exe 'source' f
-  endfor
+" ----------------------------------------
+" Plugin Configuration
+" ----------------------------------------
+" Autoloading config files in /plugin wasnt working properly so:
+for f in split(glob('~/.vim/settings/*.vim'), '\n')
+  exe 'source' f
+endfor
+" Allow others to add their own customizations outside of my /settings/
+for f in split(glob('~/.vim/custom/*.vim'), '\n')
+  exe 'source' f
+endfor
