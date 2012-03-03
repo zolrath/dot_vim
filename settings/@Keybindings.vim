@@ -165,7 +165,7 @@ function! WinMove(key)
       wincmd s
     endif
   endif
-    exec "wincmd ".a:key
+  exec "wincmd ".a:key
 endfunction
 
 map <leader>h   :call WinMove('h')<cr>
@@ -197,7 +197,7 @@ nmap <down>    :3wincmd -<cr>
 " Preserves/Saves the state, executes a command, and returns to the saved state.
 " ---------------
 function! Preserve(command)
-  " Preparation: save last search, and cursor position.
+  " Save last search, and cursor position.
   let _s=@/
   let l = line(".")
   let c = col(".")
@@ -229,7 +229,7 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
-nnoremap <leader>ds :DiffSaved<CR><C-w>l
+nnoremap <leader>ds :DiffSaved<CR>
 
 " ---------------
 " Quick spelling fix (first item in z= list).
