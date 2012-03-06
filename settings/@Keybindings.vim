@@ -1,7 +1,6 @@
 " ----------------------------------------
 " Bindings
 " ----------------------------------------
-
 " swap ` with ' because the ' key is closer and jumping to the character is more useful.
 nnoremap ' `
 nnoremap ` '
@@ -16,6 +15,10 @@ vnoremap K k
 
 " Map Q to repeat last run macro.
 map Q @@
+
+" Use Q for formatting the current paragraph (or selection).
+" vmap Q gq
+" nmap Q gqap
 
 " Auto-indent pastes according to surrounding code.
 nnoremap <leader>p p
@@ -39,9 +42,8 @@ vnoremap . :normal .<CR>
 " put cursor back to original position after repeating with .
 nnoremap . .`[
 
-" Use Q for formatting the current paragraph (or selection).
-vmap Q gq
-nmap Q gqap
+" Join lines with J without moving cursor
+nnoremap <silent> J :call Preserve("normal!" . "J")<CR>
 
 " Set C-c and C-v in visual mode to copy/paste in vim without +clipboard.
 " Can only yank whole lines. If possible, recompile with +clipboard.
@@ -80,20 +82,34 @@ nmap <C-d> <C-b>
 noremap j gj
 noremap k gk
 
+" Use tab in normal mode to cycle splits.
+noremap <tab> <C-w>w
+noremap <S-Tab> <C-w>W
+
 " Use ; for : in normal and visual mode, less keystrokes.
 nnoremap ; :
 vnoremap ; :
 nnoremap ;; :!
 vnoremap ;; :!
 
+" Emacs-like Bindings for command line
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-d> <Delete>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <M-d> <S-right><Delete>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+cnoremap <Esc>d <S-right><Delete>
+cnoremap <C-g> <C-c>
+
 "----------------------------
 " New Features
 " ---------------------------
-" Write with sudo.
-cnoremap w!! w !sudo tee % >/dev/null<CR>
-
 " Remap K to split line to right of current cursor position.
-nnoremap K a<CR><Esc>`[
+nnoremap K i<CR><Esc>`[
 
 " Make C-y get word above it in insert mode.
 inoremap <expr> <C-y> matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
@@ -118,8 +134,8 @@ nnoremap <C-h> <<
 nnoremap <C-l> >>
 inoremap <C-h> <Esc><<`]a
 inoremap <C-l> <Esc>>>`]a
-vnoremap <C-h> <gv
 vnoremap <C-l> >gv
+vnoremap <C-h> <gv
 
 " Yank text by deleting, then visually highlight what you want to swap it with
 " then press C-r.
@@ -136,8 +152,8 @@ vmap <silent> <leader>d "_d
 " Toggle spelling mode with ,s
 " nmap <silent> <leader>s :set spell!<CR>
 
-" ,s or ,S to search for word under cursor.
-nnoremap <leader>s :%s/\v/<left>
+" ,s to search or ,S to search for word under cursor.
+nnoremap <leader>s :%s/\v
 nnoremap <Leader>S :%s/<c-r>=expand('<cword>')<cr>//gc<left><left><left>
 
 " Edit vimrc with ,v
@@ -211,7 +227,8 @@ endfunction
 " ---------------
 " Fix Trailing White Space.
 " ---------------
-nnoremap <silent> <leader>ws  :call Preserve("%s/\\s\\+$//e")<CR>
+nnoremap <silent> <leader>ws :call Preserve("%s/\\s\\+$//e")<CR>
+autocmd BufWritePre *.rb :call Preserve("%s/\\s\\+$//e")
 
 " ---------------
 " Reindent File.
@@ -230,6 +247,30 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 nnoremap <leader>ds :DiffSaved<CR>
+
+" ---------------
+" In visual mode when you press * or # to search for the current selection
+" ---------------
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+
+" From an idea by Michael Naumann
+function! VisualSearch(direction) range
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+  if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+  endif
+
+  let @/ = l:pattern
+  let @" = l:saved_reg
+endfunction
 
 " ---------------
 " Quick spelling fix (first item in z= list).

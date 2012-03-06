@@ -22,6 +22,7 @@ silent! Bundle 'gmarik/vundle'
 
 " Edit VundlePackages.vim to add new plugins.
 source ~/.vim/settings/@Packages.vim
+source ~/.vim/custom/@CustomPackages.vim
 
 " Automatically detect file types. (must turn on after Vundle)
 filetype plugin indent on
