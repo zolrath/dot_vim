@@ -20,6 +20,10 @@ map Q @@
 " vmap Q gq
 " nmap Q gqap
 
+" Switch buffers with ,, and ,.
+nnoremap <leader>, :bp<CR>
+nnoremap <leader>. :bn<CR>
+
 " Auto-indent pastes according to surrounding code.
 nnoremap <leader>p p
 nnoremap <leader>P P
