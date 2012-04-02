@@ -21,7 +21,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
 Bundle 'Rykka/ColorV'
 Bundle 'ap/vim-css-color'
-
+" Bundle 'dahu/Insertlessly'
 " Bundle 'kikijump/tslime.vim'
 " Bundle 'mutewinter/vim-indent-guides'
 
@@ -41,6 +41,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'godlygeek/tabular'
 Bundle 'gmarik/sudo-gui.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'swaroopch/vim-markdown-preview'
 
 " Bundle 'tpope/vim-speeddating'
 
