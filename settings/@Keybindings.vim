@@ -45,6 +45,9 @@ map <leader>ct :!rm ~/.vim/tmp/*<CR><CR>
 " Use kj as Esc alternative.
 inoremap kj <Esc>
 
+" C-j in insert mode adds new line below.
+inoremap <C-j> <Esc>o
+
 " Use ; for : in normal and visual mode, less keystrokes.
 nnoremap ; :
 vnoremap ; :
@@ -64,6 +67,25 @@ vnoremap <Space> za
 
 " Allow the . to execute once for each line of a visual selection.
 vnoremap . :normal .<CR>
+
+"----------------------------
+" Ruby
+" ---------------------------
+" Insert a hash rocket => with <C-l>
+imap <C-l> <space>=><space>
+
+" Promote variable to RSpec let
+function! PromoteToLet()
+  normal! dd
+  " :exec '?^\s*it\>'
+  normal! P
+  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+  normal ==
+endfunction
+command! PromoteToLet :call PromoteToLet()
+map <leader>p :PromoteToLet<CR>
+
+map <leader>a :A<CR>
 
 "----------------------------
 " Movement
@@ -88,8 +110,8 @@ vmap <C-j> ]egv
 " Use C-h or C-l to indent left/right.
 nnoremap <C-h> <<
 nnoremap <C-l> >>
-inoremap <C-h> <Esc><<`]a
-inoremap <C-l> <Esc>>>`]a
+" inoremap <C-h> <Esc><<`]a
+" inoremap <C-l> <Esc>>>`]a
 vnoremap <C-l> >gv
 vnoremap <C-h> <gv
 

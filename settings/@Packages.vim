@@ -21,7 +21,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'sjl/gundo.vim'
 Bundle 'Rykka/ColorV'
 Bundle 'ap/vim-css-color'
-" Bundle 'dahu/Insertlessly'
+Bundle 'chrisbra/Recover.vim'
 " Bundle 'kikijump/tslime.vim'
 " Bundle 'mutewinter/vim-indent-guides'
 
@@ -42,6 +42,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'gmarik/sudo-gui.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'swaroopch/vim-markdown-preview'
+Bundle 'kana/vim-smartinput'
 
 " Bundle 'tpope/vim-speeddating'
 
@@ -50,6 +51,8 @@ Bundle 'swaroopch/vim-markdown-preview'
 " ------------------
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-rhubarb'
+Bundle 'sjl/threesome.vim'
 " Bundle 'int3/vim-extradite'
 
 " ------------------
@@ -75,6 +78,8 @@ Bundle 'ervandew/supertab'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'skalnik/vim-vroom'
 Bundle 'tpope/vim-haml'
 Bundle 'asux/vim-capybara'
 Bundle 'bbommarito/vim-slim'
@@ -82,7 +87,6 @@ Bundle 'cakebaker/scss-syntax.vim'
 " Bundle 'ecomba/vim-ruby-refactoring'
 " Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-cucumber'
-" Bundle 'tpope/vim-rake'
 " Bundle 'tpope/vim-bundler'
 
 " ------------------
@@ -106,6 +110,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'xolox/vim-easytags'
 Bundle 'tpope/vim-markdown'
 Bundle 'mattn/gist-vim'
+Bundle 'sjl/clam.vim'
 
 " ------------------
 " MatchIt

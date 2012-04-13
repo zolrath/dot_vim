@@ -18,11 +18,11 @@ let mapleader=","
 " ----------------------------------------
 
 " Let Vundle manage Vundle, required
-silent! Bundle 'gmarik/vundle'
+" silent! Bundle 'gmarik/vundle'
 
 " Edit VundlePackages.vim to add new plugins.
-source ~/.vim/settings/@Packages.vim
-source ~/.vim/custom/@CustomPackages.vim
+source ~/.vim/@Packages.vim
+source ~/.vim/@CustomPackages.vim
 
 " Automatically detect file types. (must turn on after Vundle)
 filetype plugin indent on
@@ -34,7 +34,7 @@ filetype plugin indent on
 if has('win32') || has('win64')
   " Windows
   source $VIMRUNTIME/mswin.vim
-  set guifont=Consolas:h10
+  set guifont=Consolas:h12
   set guioptions-=T " Toolbar
   set guioptions-=m " Menubar
 
@@ -48,7 +48,7 @@ elseif has('gui_macvim')
   " MacVim
   " Custom Inconsola-dz font for Powerline
   " From: https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-  set guifont=Inconsola-dz\ for\ Powerline:h14
+  set guifont=Inconsola-dz\ for\ Powerline:h16
 
   " Hide Toolbar in MacVim
   if has("gui_running")
@@ -106,6 +106,16 @@ set shortmess+=I
 " set winminheight=5
 " set winheight=999
 
+" Use a bar-shaped cursor for insert mode, even through tmux.
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+" Unfuck my screen
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 " ---------------
 " Behaviors
 " ---------------
@@ -121,10 +131,11 @@ set timeoutlen=350     " Time to wait for a command (after leader for example)
 set foldmethod=syntax  " Fold on syntax for ruby support.
 set foldlevelstart=99  " Remove folds
 set formatoptions=crql
-set scrolloff=5        " start scrolling when within 5 lines near the top/bottom
-set sidescrolloff=10   " start scrolling when within 10 characters of the left/right
-set sidescroll=1       " scroll to left/right one column at a time.
-set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) in visual block mode
+set scrolloff=5        " Start scrolling when within 5 lines near the top/bottom
+set sidescrolloff=10   " Start scrolling when within 10 characters of the left/right
+set sidescroll=1       " Scroll to left/right one column at a time.
+set virtualedit+=block " Allow freeform selection (i.e. ignoring line endings)
+                       " in visual block mode
 
 " ---------------
 " Text Format
@@ -132,7 +143,7 @@ set virtualedit+=block " allow freeform selection (i.e. ignoring line endings) i
 set tabstop=2
 set backspace=2   " Delete everything with backspace
 set shiftwidth=2  " Tabs under smart indent
-set cindent
+" set cindent
 set autoindent
 set smarttab
 set expandtab
